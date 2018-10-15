@@ -166,17 +166,22 @@ public class TreeTraversal {
 		while(!stack.isEmpty()) {
 
 			next = stack.peek();
+
 			boolean finishedSubtrees = (next.right == root || next.left == root);
 			boolean isLeaf = (next.left == null && next.right == null);
+
 			if (finishedSubtrees || isLeaf) {
+
 			  stack.pop();
 			  traversal.add(next.val);
 			  root = next;
 			}
 			else {
+
 			  if (next.right != null) {
 			    stack.push(next.right);
 			  }
+			  
 			  if (next.left != null) {
 			    stack.push(next.left);
 			  }
