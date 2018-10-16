@@ -66,8 +66,8 @@ public class MinHeap {
 	 			parent = toSwap;
 	 			left = leftChildIndex(parent);
 	 			right = rightChildIndex(parent);
-            }
-            else break;
+	 		}
+	 		else break;
 	 	}
 	 	return min;
 	}
@@ -91,10 +91,10 @@ public class MinHeap {
 		//check for parent violations
 		while (parent != i && nodes.get(i) < nodes.get(parent)) {
 
-            swap(i, parent);
-            i = parent;
-            parent = parentIndex(i);
-        }
+		swap(i, parent);
+		i = parent;
+		parent = parentIndex(i);
+	}
 
 		return;
 	}
