@@ -19,6 +19,8 @@ public class TreeTraversal {
 		List<Integer> iterativePreorder = new ArrayList<Integer>();
 		List<Integer> recursivePostorder = new ArrayList<Integer>();
 		List<Integer> iterativePostorder = new ArrayList<Integer>();
+		List<Integer> levelOrder = new ArrayList<Integer>();
+		List<Integer> zigZagLevelOrder = new ArrayList<Integer>();
 
 		recursiveInorder(root, recursiveInorder);
 		iterativeInorder(root, iterativeInorder);
@@ -26,6 +28,8 @@ public class TreeTraversal {
 		iterativePreorder(root, iterativePreorder);
 		recursivePostorder(root, recursivePostorder);
 		iterativePostorder(root, iterativePostorder);
+		levelOrder(root, levelOrder);
+		zigZagLevelOrder(root, zigZagLevelOrder);
 
 		System.out.println("recursiveInorder");
 		for (int num : recursiveInorder) {
@@ -59,6 +63,18 @@ public class TreeTraversal {
 
 		System.out.println("iterativePostorder");
 		for (int num : iterativePostorder) {
+			System.out.print(num + " ");
+		}
+		System.out.println();
+
+		System.out.println("levelOrder");
+		for (int num : levelOrder) {
+			System.out.print(num + " ");
+		}
+		System.out.println();
+
+		System.out.println("zigZagLevelOrder");
+		for (int num : zigZagLevelOrder) {
 			System.out.print(num + " ");
 		}
 		System.out.println();
@@ -181,11 +197,83 @@ public class TreeTraversal {
 			  if (next.right != null) {
 			    stack.push(next.right);
 			  }
-			  
+
 			  if (next.left != null) {
 			    stack.push(next.left);
 			  }
 			}
+		}
+	}
+
+	public static void levelOrder(TreeNode root, List<Integer> traversal) {
+
+		if (root == null) return;
+
+		TreeNode curr;
+		Stack<TreeNode> currLevel = new Stack<TreeNode>();
+		Stack<TreeNode> nextLevel = new Stack<TreeNode>();
+
+		nextLevel.push(root);
+
+		while (!nextLevel.isEmpty()) {
+
+			while (!nextLevel.isEmpty()) {
+				currLevel.push(nextLevel.pop());
+			}
+
+			while (!currLevel.isEmpty()) {
+
+				curr = currLevel.pop();
+				if (curr == null) continue;
+
+				traversal.add(curr.val);
+				nextLevel.push(curr.left);
+				nextLevel.push(curr.right);
+			}
+
+		}
+	}
+
+	public static void zigZagLevelOrder(TreeNode root, List<Integer> traversal) {
+		
+		if (root == null) return;
+
+		TreeNode curr;
+		Stack<TreeNode> currLevel = new Stack<TreeNode>();
+		Stack<TreeNode> nextLevel = new Stack<TreeNode>();
+		Stack<TreeNode> temp = new Stack<TreeNode>();
+
+		nextLevel.push(root);
+
+		boolean forwards = true;
+
+		while (!nextLevel.isEmpty()) {
+
+			if (forwards) {
+				while (!nextLevel.isEmpty()) {
+					currLevel.push(nextLevel.pop());
+				}
+			}
+			else { //backwards
+				while (!nextLevel.isEmpty()) {
+					temp.push(nextLevel.pop());
+				}
+				while (!temp.isEmpty()) {
+					currLevel.push(temp.pop());
+				}
+			}
+
+			while (!currLevel.isEmpty()) {
+
+				curr = currLevel.pop();
+				if (curr == null) continue;
+
+				traversal.add(curr.val);
+				nextLevel.push(curr.left);
+				nextLevel.push(curr.right);
+			}
+
+			forwards = !forwards;
 		}
 	}
 }
