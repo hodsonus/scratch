@@ -97,9 +97,18 @@ public class Sorting {
 		}
 	}
 
-//TODO
-	public static void heapSort() {
+	public static void heapSort(List<Integer> nums) {
 
+		MinHeap heap = new MinHeap();
+
+		for (int i = 0; i < nums.size(); i++) {
+			heap.insert(nums.get(i));
+		}
+
+		int m = 0;
+		while (!heap.isEmpty()) {
+			nums.set(m++, heap.removeMin());
+		}
 	}
 
 	public static void swap(List<Integer> nums, int i, int j) {
