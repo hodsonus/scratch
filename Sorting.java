@@ -5,16 +5,26 @@ public class Sorting {
 	public static void main(String[] args) {
 
 		List<Integer> nums = new ArrayList<Integer>(Arrays.asList(9, 6, 3, 2, 1, 4, 3, 7));
-		nums = recursiveMergeSort(nums);
+		nums = iterativeMergeSort(nums);
 
 		for(int num : nums) {
 			System.out.println(num + " ");
 		}
 	}
 
-//TODO
-	public static void iterativeMergeSort() {
+	public static List<Integer> iterativeMergeSort(List<Integer> nums) {
 
+		Queue<List<Integer>> queue = new LinkedList<List<Integer>>();
+
+		for (int num : nums) {
+			queue.add(new ArrayList<Integer>(Arrays.asList(num)));
+		}
+
+		while (queue.size() > 1) {
+			queue.add(merge(queue.remove(),queue.remove()));
+		}
+
+		return queue.remove();
 	}
 
 	public static List<Integer> recursiveMergeSort(List<Integer> nums) {
@@ -84,7 +94,7 @@ public class Sorting {
 
 	}
 
-	public static void bubbleSort(List<Integer> nums) {
+	public static List<Integer> bubbleSort(List<Integer> nums) {
 
 		boolean swapped = true;
 		while (swapped) {
@@ -96,9 +106,11 @@ public class Sorting {
 				}
 			}
 		}
+
+		return nums;
 	}
 
-	public static void insertionSort(List<Integer> nums) {
+	public static List<Integer> insertionSort(List<Integer> nums) {
 
 
 		for (int i = 1; i < nums.size(); i++) {
@@ -114,9 +126,11 @@ public class Sorting {
 
 			 nums.set(j+1, toInsert);
 		}
+
+		return nums;
 	}
 
-	public static void selectionSort(List<Integer> nums) {
+	public static List<Integer> selectionSort(List<Integer> nums) {
 
 		int min;
 
@@ -132,9 +146,11 @@ public class Sorting {
 
 			swap(nums, i, min);
 		}
+
+		return nums;
 	}
 
-	public static void heapSort(List<Integer> nums) {
+	public static List<Integer> heapSort(List<Integer> nums) {
 
 		MinHeap heap = new MinHeap();
 
@@ -146,6 +162,8 @@ public class Sorting {
 		while (!heap.isEmpty()) {
 			nums.set(m++, heap.removeMin());
 		}
+
+		return nums;
 	}
 
 	public static void swap(List<Integer> nums, int i, int j) {
