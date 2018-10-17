@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Scratch {
+public class KnightDialer {
 	public static void main(String[] args) {
 
 		int start = 6;
