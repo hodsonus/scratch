@@ -5,7 +5,7 @@ public class Sorting {
 	public static void main(String[] args) {
 
 		List<Integer> nums = new ArrayList<Integer>(Arrays.asList(9, 6, 3, 2, 1, 4, 3, 7));
-		insertionSort(nums);
+		nums = recursiveMergeSort(nums);
 
 		for(int num : nums) {
 			System.out.println(num + " ");
@@ -17,14 +17,51 @@ public class Sorting {
 
 	}
 
-//TODO
-	public static void recursiveMergeSort() {
+	public static List<Integer> recursiveMergeSort(List<Integer> nums) {
 
+		if (nums.size() == 1) return nums;
+
+		List<Integer> a = recursiveMergeSort(nums.subList(0,nums.size()/2));
+		List<Integer> b = recursiveMergeSort(nums.subList(nums.size()/2, nums.size()));
+
+		return merge(a,b);
 	}
 
-//TODO
-	public static void merge() {
+	public static List<Integer> merge(List<Integer> a, List<Integer> b) {
 
+		int i = 0;
+		int j = 0;
+		List<Integer> merged = new ArrayList<Integer>();
+
+		while (i < a.size() && j < b.size()) {
+
+			if (a.get(i) == b.get(j)) {
+				merged.add(a.get(i));
+				merged.add(b.get(j));
+				i++;
+				j++;
+			}
+			else if (a.get(i) < b.get(j)) {
+				merged.add(a.get(i));
+				i++;
+			}
+			else { //a.get(i) > b.get(j)
+				merged.add(b.get(j));
+				j++;
+			}
+		}
+
+		while (i < a.size()) {
+			merged.add(a.get(i));
+			i++;
+		}
+
+		while (j < b.size()) {
+			merged.add(b.get(j));
+			j++;
+		}
+
+		return merged;
 	}
 
 //TODO
