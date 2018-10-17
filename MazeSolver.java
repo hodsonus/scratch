@@ -103,7 +103,7 @@ public class MazeSolver {
 
 	private boolean isValidIndex(char[][] grid, Point v) {
 
-		return (v.x >= 0 && v.x < grid.length) && (v.y >= 0 && v.y < grid[0].length);
+		return (v.x >= 0 && v.x < grid.length) && (v.y >= 0 && v.y < grid[v.x].length);
 	}
 
 	private static class Point {
@@ -123,6 +123,13 @@ public class MazeSolver {
 		      return this.x == v.x && this.y == v.y;
 		    }
 		    return false;
+		}
+
+		@Override
+		public int hashCode() {
+
+			//Cantor pairing function
+			return (x+y)*(x+y+1)/2+y;
 		}
 	}
 }
