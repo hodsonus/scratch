@@ -1,0 +1,81 @@
+google phone interview 2
+
+Please use this Google doc to code during your interview. To free your hands for coding, we recommend that you use a headset or a phone with speaker option.
+
+… ⇔ 8 ⇔ 9 ⇔ 12 ⇔ 3 ⇔ 5 ⇔ 1 ⇔ 4 ⇔ 10 …
+
+Input: array of nodes (btw, nodes are coming from the doubly linked list)
+Output: return the number of isolated/connected components from the view of input
+
+Examples:
+[Node(9), Node(1), Node(5), Node(12), Node(3)] => 1
+… ⇔ 8 ⇔ 9 ⇔ 12 ⇔ 3 ⇔ 5 ⇔ 1 ⇔ 4 ⇔ 10 …
+
+
+[Node(9), Node(1), Node(5), Node(12), Node(3), Node(3)]
+
+public class Node {
+	Node prev;
+	Node next;
+	int val;
+}
+
+public int connectedComponents(Node[] nodes) {
+
+	if (nodes == null || nodes.length == 0) return 0;
+
+	List<List<Node>> components = new ArrayList<List<Node>>();
+	List<Node> temp = new ArrayList<Node>(Arrays.asList(nodes[0]));
+	components.add(temp);
+	
+	boolean placedInList;
+	for (int i = 1; i < nodes.length; i++) {
+		Node curr = nodes[i];
+		boolean placedInList = false;
+		for (ArrayList<Node> component : components) {
+			if (component.contains(curr.prev) || component.contains(curr.next)) {
+				component.add(curr);
+				placedInList = true;
+				break;
+			}
+		}
+
+		if (!placedInList) {
+			temp = new ArrayList<Node>(Arrays.asList(curr));
+			components.add(temp);
+		}
+	}
+
+	return components.size();
+}
+
+
+[Node(9), Node(1), Node(5), Node(12), Node(10)] => 3
+…  null ⇔ 8 ⇔ 9 ⇔ 12 ⇔ 3 ⇔ 5 ⇔ 1 ⇔ 4 ⇔ 10 -> null …
+
+MAP CONTENTS = 9, 1, 5, 12, 10
+COUNT = 3
+
+//from 1 to 4
+public int connectedComponentsLinear(Node[] nodes) {
+	if (nodes == null || nodes.length == 0) return 0;
+
+	Set<Node> map = new HashSet<Node>();
+
+	int count = 0;
+	for (Node curr : nodes) {
+		if (!map.containsKey(curr.next) && !map.containsKey(curr.prev)) {
+			count++;
+		}
+		map.put(curr);
+	}
+
+	return count;
+}
+
+Sorry my laptop crashed : /
+it is about to end, so just say 88, thank you
+
+no worries, is there anything else that you need from me?
+
+thanks for your time!
